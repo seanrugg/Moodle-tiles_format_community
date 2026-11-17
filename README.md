@@ -1,6 +1,8 @@
 # Tiles Course Format
 
-### Author: David Watson http://evolutioncode.uk
+### Original Author: David Watson
+
+### Maintainer: Sean Rugge
 
 This is the "Tiles" course format plugin for Moodle.
 
