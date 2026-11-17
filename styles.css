@@ -2046,6 +2046,45 @@ body.jsenabled.format-tiles #collapsiblesec0 {
     }
 }
 
+/*
+ * format_tiles on Moodle 5.3: anchor the drawers and their toggles to the screen edges.
+ *
+ * Boost 5.3 anchors the drawers and toggles on limitedwidth pages to the edges of an 830px
+ * content column (theme/boost/scss/moodle/drawer.scss, $drawer-anchor-none and
+ * drawer-left-anchor()/drawer-right-anchor()). course/view.php always adds limitedwidth,
+ * but format_tiles removes the 830px max-width so the tile grid can use the full page.
+ * As a result, the drawers and toggles are placed where an 830px column would end,
+ * which is the middle of the page, over the tiles and the course title.
+ * Core's #page margins already reserve the correct space for each open drawer,
+ * so only the horizontal position of the drawers and toggles is changed here.
+ * !important is needed because core's rules use :has()/:not(:has(#page...)) selectors,
+ * which have two-ID specificity.
+ */
+@media (min-width: 992px) {
+    /* stylelint-disable declaration-no-important */
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer.drawer-left,
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer.drawer-left.show {
+        right: auto !important;
+        left: var(--mds-spacing-lg, 1.25rem) !important;
+    }
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer.drawer-right,
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer.drawer-right.show {
+        left: auto !important;
+        right: var(--mds-spacing-lg, 1.25rem) !important;
+    }
+    /* The toggler wrapper has a 16px margin on each side of the button,
+       so subtract it to line the button up with the drawer edge. */
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer-toggles .drawer-left-toggle {
+        right: auto !important;
+        left: calc(var(--mds-spacing-lg, 1.25rem) - 16px) !important;
+    }
+    body.format-tiles.limitedwidth:not(.path-mod):not(.format-tiles-single-sec) .drawer-toggles .drawer-right-toggle {
+        left: auto !important;
+        right: calc(var(--mds-spacing-lg, 1.25rem) - 16px) !important;
+    }
+    /* stylelint-enable declaration-no-important */
+}
+
 @media screen and (max-width: 680px) {
     .format-tiles .subtiles {
         /* stylelint-disable-next-line declaration-no-important */
