@@ -853,8 +853,9 @@ define(["jquery", "core/templates", "core/ajax", "format_tiles/browser_storage",
 
                         // Move overlay into #page element.
                         // Enables left and right drawers plus scroll bar remain on top when tile is open.
+                        // Once inside #page, the overlay must size to #page, not the viewport.
                         if (page.length) {
-                            $(`#${OVERLAY_ID}`).appendTo(page).css('position', 'absolute');
+                            $(`#${OVERLAY_ID}`).appendTo(page).css({position: 'absolute', left: 0, width: '100%'});
                         }
 
                         initCourseIndexWatcher();
